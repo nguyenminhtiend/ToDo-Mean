@@ -8,7 +8,7 @@ var app = express();
 var router = express.Router();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
-var config = require('./config/configuration');
+var config = require('./app/config/configuration');
 var path = require('path');
 
 app.use(express.static(__dirname + '/public'));

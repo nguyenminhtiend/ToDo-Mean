@@ -10,20 +10,26 @@ var concat = require('gulp-concat');
 
 var paths = {
     html: './public/index.html',
-    js: './src/**/*.js',
+    js: './public/js/**/*.js',
     css: [
         './public/css/style.css',
         './public/libs/bootstrap/dist/css/bootstrap.min.css'
     ],
     less: './public/less/*.less',
     mainJs: './public/js/app.js',
-    public: './public'
+    public: './public',
+    build: './public/build'
 };
 
 gulp.task('start', function () {
     nodemon({
-        script: 'server.js'
-        , env: {
+        script: 'server.js',
+        watch: 'app',
+        ignore: [
+            'public/',
+            'node_modules/'
+        ],
+        env: {
             NODE_ENV: 'development',
             PORT: 8000
         }
@@ -36,7 +42,7 @@ gulp.task('js', function () {
     browserify(paths.mainJs)
         .bundle()
         .pipe(source('bundle.js'))
-        .pipe(gulp.dest('./public/build/js'));
+        .pipe(gulp.dest(paths.build + '/js'));
 });
 
 gulp.task('less', function() {
@@ -48,7 +54,12 @@ gulp.task('less', function() {
 gulp.task('css', function () {
     gulp.src(paths.css)
         .pipe(concat('bundle.css'))
-        .pipe(gulp.dest(paths.public + '/css'));
+        .pipe(gulp.dest(paths.build + '/css'));
 });
 
-gulp.task('default', ['less', 'css', 'js','start']);
+gulp.task('watch', function () {
+    gulp.watch(paths.js, ['js']);
+    gulp.watch(paths.css , ['css']);
+});
+
+gulp.task('default', ['less', 'css', 'js','start', 'watch']);
