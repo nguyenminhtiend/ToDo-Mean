@@ -13,6 +13,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             templateUrl: 'views/note.html',
             controller: 'noteController'
         })
+        .state('login', {
+            url: '/login',
+            templateUrl: 'views/login.html',
+            controller: 'userController'
+        })
         .state('about', {
             url: '/about',
             templateUrl: 'views/about.html',
@@ -22,5 +27,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 
 app.controller('aboutController', require('./controllers/aboutController'));
 app.controller('noteController', require('./controllers/noteController'));
+app.controller('userController', require('./controllers/userController'));
 
 app.factory('noteService', require('./services/noteService'));
