@@ -10,17 +10,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     $stateProvider
         .state('note', {
             url: '/note',
-            templateUrl: 'views/note.html',
+            templateUrl: 'partials/note.html',
             controller: 'noteController'
         })
         .state('login', {
             url: '/login',
-            templateUrl: 'views/login.html',
+            templateUrl: 'partials/login.html',
             controller: 'userController'
         })
         .state('about', {
             url: '/about',
-            templateUrl: 'views/about.html',
+            templateUrl: 'partials/about.html',
             controller: 'aboutController'
         });
 }]);

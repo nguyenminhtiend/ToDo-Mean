@@ -1,28 +1,28 @@
-<html ng-app="app">
+﻿<html>
 <head>
     <title>MEAN with Browserify Gulp</title>
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="build/css/bundle.css">
-    <script src="build/js/bundle.js"></script>
 </head>
-<body>
-<div class="container">
-    <div class="header clearfix">
-        <nav>
-            <ul class="nav nav-pills pull-right">
-                <li role="presentation" ui-sref-active="active"><a ui-sref="note">Home</a></li>
-                <li role="presentation" ui-sref-active="active"><a ui-sref="about">About</a></li>
-                <li role="presentation"><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-        <h3 class="text-muted">Project name</h3>
+<body ng-app="app">
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" ui-sref-active="active"><a ui-sref="note">Home</a></li>
+                    <li role="presentation" ui-sref-active="active"><a ui-sref="about">About</a></li>
+                    <li role="presentation"><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Project name</h3>
+        </div>
+        <div id="main">
+            <div ui-view></div>
+        </div>
+        <footer class="footer">
+            <p>© 2015 Company, Inc.</p>
+        </footer>
     </div>
-    <div id="main">
-        <div ui-view></div>
-    </div>
-    <footer class="footer">
-        <p>© 2015 Company, Inc.</p>
-    </footer>
-</div>
+    <script src="build/js/bundle.js"></script>
 </body>
 </html>

@@ -7,6 +7,8 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var less = require('gulp-less');
 var concat = require('gulp-concat');
+var jasmine = require('gulp-jasmine');
+var reporters = require('jasmine-reporters');
 
 var paths = {
     html: './public/index.html',
@@ -18,7 +20,8 @@ var paths = {
     less: './public/less/*.less',
     mainJs: './public/js/app.js',
     public: './public',
-    build: './public/build'
+    build: './public/build',
+    test: './public/test/*.js'
 };
 
 gulp.task('start', function () {
@@ -34,7 +37,7 @@ gulp.task('start', function () {
             PORT: 8000
         }
     }).on('restart', function () {
-        console.log('restarted!')
+        console.log('restarted!');
     });
 });
 
@@ -45,7 +48,7 @@ gulp.task('js', function () {
         .pipe(gulp.dest(paths.build + '/js'));
 });
 
-gulp.task('less', function() {
+gulp.task('less', function () {
     gulp.src(paths.less)
         .pipe(less())
         .pipe(gulp.dest('./public/css'));
@@ -59,7 +62,14 @@ gulp.task('css', function () {
 
 gulp.task('watch', function () {
     gulp.watch(paths.js, ['js']);
-    gulp.watch(paths.css , ['css']);
+    gulp.watch(paths.css, ['css']);
 });
 
-gulp.task('default', ['less', 'css', 'js','start', 'watch']);
+gulp.task('test', function () {
+    gulp.src(paths.test)
+        .pipe(jasmine({
+            reporter: new reporters.JUnitXmlReporter()
+        }));
+});
+
+gulp.task('default', ['less', 'css', 'js', 'start', 'watch']);
