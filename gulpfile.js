@@ -7,12 +7,16 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var less = require('gulp-less');
 var concat = require('gulp-concat');
-var jasmine = require('gulp-jasmine');
-var reporters = require('jasmine-reporters');
+//var jasmine = require('gulp-jasmine');
+//var reporters = require('jasmine-reporters');
 
 var paths = {
     html: './public/index.html',
     js: './public/js/**/*.js',
+    js_libs: [
+        './public/libs/angular/angular.js',
+        './public/libs/angular-ui-router/release/angular-ui-router.js'
+    ],
     css: [
         './public/css/style.css',
         './public/libs/bootstrap/dist/css/bootstrap.min.css'
@@ -44,7 +48,13 @@ gulp.task('start', function () {
 gulp.task('js', function () {
     browserify(paths.mainJs)
         .bundle()
-        .pipe(source('bundle.js'))
+        .pipe(source('app.js'))
+        .pipe(gulp.dest(paths.build + '/js'));
+});
+
+gulp.task('js-libs', function () {
+    gulp.src(paths.js_libs)
+        .pipe(concat('app.libs.js'))
         .pipe(gulp.dest(paths.build + '/js'));
 });
 
@@ -65,11 +75,11 @@ gulp.task('watch', function () {
     gulp.watch(paths.css, ['css']);
 });
 
-gulp.task('test', function () {
-    gulp.src(paths.test)
-        .pipe(jasmine({
-            reporter: new reporters.JUnitXmlReporter()
-        }));
-});
+//gulp.task('test', function () {
+//    gulp.src(paths.test)
+//        .pipe(jasmine({
+//            reporter: new reporters.JUnitXmlReporter()
+//        }));
+//});
 
-gulp.task('default', ['less', 'css', 'js', 'start', 'watch']);
+gulp.task('default', ['less', 'css', 'js-libs','js', 'start', 'watch']);

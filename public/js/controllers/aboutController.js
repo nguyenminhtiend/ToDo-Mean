@@ -1,9 +1,9 @@
 'use strict';
 
-var contactController = function ($scope) {
-    $scope.message = "About page 123!";
+var aboutController = function ($scope) {
+    $scope.message = "About page";
 };
 
-contactController.$inject = ['$scope'];
+aboutController.$inject = ['$scope'];
 
-module.exports = contactController;
+module.exports = aboutController;

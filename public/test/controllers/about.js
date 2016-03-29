@@ -1,17 +1,19 @@
 ﻿describe('Hello World example ', function () {
-
     beforeEach(module('app'));
 
-    var aboutController, scope;
+    describe('Test about controller',function(){ //describe your app name
 
-    beforeEach(inject(function ($rootScope, $controller) {
-        scope = $rootScope.$new();
-        aboutController = $controller('aboutController', {
-            $scope: scope
+        var aboutController, scope;
+
+        beforeEach(inject(function ($rootScope, $controller) {
+            scope = $rootScope.$new();
+            aboutController = $controller('aboutController', {
+                $scope: scope
+            });
+        }));
+        it('says hello world!', function () {
+            expect(scope.message).toEqual("About page");
         });
-    }));
-    it('says hello world!', function () {
-        expect(scope.message).toEqual("About page 123!");
-    });
 
+    });
 });
