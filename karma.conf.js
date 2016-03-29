@@ -19,7 +19,7 @@ module.exports = function(config) {
       './public/libs/angular-ui-router/release/angular-ui-router.js',
       './public/libs/angular-mocks/angular-mocks.js',
       './public/build/js/app.js',
-      './public/test/controllers/about.js'
+      './public/test/controllers/*.js'
     ],
 
 

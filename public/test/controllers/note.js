@@ -1,64 +1,24 @@
-﻿//describe('Note Controller', function () {
-//
-//    var noteController, scope, noteService;
-//
-//    beforeEach(function () {
-//        var mockNoteService = {};
-//        module('app', function ($provide) {
-//            $provide.value('noteService', mockNoteService);
-//        });
-//
-//        inject(function ($q) {
-//            mockNoteService.data = [
-//              {
-//                  id: 0,
-//                  name: 'Angular'
-//              }
-//            ];
-//            mockNoteService.getAll = function () {
-//                var defer = $q.defer();
-//                defer.resolve(this.data);
-//                return defer.promise;
-//            };
-//        });
-//    });
-//
-//    beforeEach(inject(function ($rootScope, $controller, _noteService_) {
-//        scope = $rootScope.$new();
-//        noteService = _noteService_;
-//        noteController = $controller('noteController', {
-//            $scope: scope,
-//            noteService: noteService
-//        });
-//        scope.$digest();
-//    }));
-//
-//    it('says hello world!', function () {
-//        expect(scope.message).toEqual("About page 123!");
-//    });
-//
-//});
+﻿describe('Note Controller', function () {
 
-/**
- * Created by tiennguyenm on 3/29/2016.
- */
+    var $scope, deferred;
 
-describe('Filters', function(){ //describe your object type
-    beforeEach(module('MyApp')); //load module
+    beforeEach(module('app'));
 
-    describe('reverse',function(){ //describe your app name
 
-        var reverse;
-        beforeEach(inject(function($filter){ //initialize your filter
-            reverse = $filter('reverse',{});
-        }));
-
-        it('Should reverse a string', function(){  //write tests
-            expect(reverse('rahil')).toBe('lihar1'); //pass
-            expect(reverse('don')).toBe('nod1'); //pass
-            //expect(reverse('jam')).toBe('oops'); // this test should fail
+    beforeEach(inject(function ($controller, $rootScope, $q, noteService) {
+        $scope = $rootScope.$new();
+        deferred = $q.defer();
+        //noteService.getAll = function(){};
+        spyOn(noteService, 'getAll').and.returnValue(deferred.promise);
+        $controller('noteController', {
+            $scope: $scope,
+            noteService: noteService
         });
+    }));
 
+    it('Test note Controller', function () {
+        deferred.resolve({data: 1});
+        $scope.$apply();
+        expect($scope.notes).toEqual(1);
     });
-
 });
